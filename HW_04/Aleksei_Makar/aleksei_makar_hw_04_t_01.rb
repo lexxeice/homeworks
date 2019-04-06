@@ -1,6 +1,6 @@
 def task_4_1(number)
   return [] if number < 0
-  return 0 if number.zero?
+  return [0] if number.zero?
 
   first_number = 0
   second_number = 1
