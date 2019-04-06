@@ -17,7 +17,8 @@ def result_hash(hash)
     result[key][:password] = value['password'] unless value['password'].nil?
     result[key][:magic_number] = magic_number(value)
   end
-  result
+  arr_result = []
+  arr_result << result
 end
 
 def magic_number(value)
