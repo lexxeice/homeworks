@@ -10,15 +10,16 @@ def task_4_2(yaml_text)
 end
 
 def result_hash(hash)
-  result = {}
+  arr_result = []
   hash.each do |key, value|
+    result = {}
     result[key] = { db: value['database'] }
     result[key][:user] = value['username'] unless value['username'].nil?
     result[key][:password] = value['password'] unless value['password'].nil?
     result[key][:magic_number] = magic_number(value)
+    arr_result << result
   end
-  arr_result = []
-  arr_result << result
+  arr_result
 end
 
 def magic_number(value)
