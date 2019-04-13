@@ -35,7 +35,7 @@ class Api
 	end
 
 	def send_notification(mentor, student, homework_name)
-		mentor.notifications << "Student #{student.name} #{student.surname} has sent #{homework_name}"
+		mentor.notifications["Student #{student.name} #{student.surname} has sent #{homework_name}"] = 'UNREAD'
 	end
 
   def subscription_issued?(mentor_subscriptions, student)

@@ -10,7 +10,7 @@ class Mentor < Human
 	def initialize(name:, surname:)
 		super
 		@subscriptions = []
-		@notifications = []
+		@notifications = {}
 	end
 
 	def connect_to_api(api)
