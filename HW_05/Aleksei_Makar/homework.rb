@@ -19,7 +19,7 @@ class Homework
 	end
 
 	def add_check_status()
-		@check_status = false
+		@check_status = 'No checked'
 		self
 	end
 

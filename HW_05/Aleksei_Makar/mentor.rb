@@ -18,16 +18,19 @@ class Mentor < Human
 		@@login = api
 	end
 
-	# def check_homework(homework)
-	# end
-
 	def subscribe_to_student(student)
 		@subscriptions << student if @@login.user_connected?(self)
 	end
 
-	# def notifications
-	# end
+	def read_notifications!
+	end
 
-	# def read_notifications!
-	# end
+	def check_homework(homework)
+		binding.pry
+
+	end
+
+	def subscribed_to?(student)
+		@subscriptions.include?(student)
+	end
 end

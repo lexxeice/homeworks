@@ -29,7 +29,7 @@ class Api
 		@users_list.each do |user_data, position|
 			# binding.pry
 			if position == Mentor
-				send_notification(user_data, student, homework_name) if subscription_issued?(user_data.subscriptions, student)		
+				send_notification(user_data, student, homework_name) if user_date.subscribed_to?(student)	
 			end
 		end
 	end
@@ -38,7 +38,4 @@ class Api
 		mentor.notifications["Student #{student.name} #{student.surname} has sent #{homework_name}"] = 'UNREAD'
 	end
 
-  def subscription_issued?(mentor_subscriptions, student)
-  	mentor_subscriptions.include?(student)
-  end
 end
