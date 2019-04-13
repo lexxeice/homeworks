@@ -8,7 +8,6 @@ class Homework
 		@homework_source = homework_source
 	  @student = student
 	  @pr_title = pr_title
-	  @check_status = false
 	end
 
 	def convert_to_json
@@ -17,6 +16,11 @@ class Homework
 
 	def owner?(user)
 		true ? self.student.eql?(user) : puts {"No access to this homework!"}
+	end
+
+	def add_check_status()
+		@check_status = false
+		self
 	end
 
 end

@@ -14,14 +14,15 @@ class Mentor < Human
 	end
 
 	def connect_to_api(api)
-		@@login = api.add_user(self)
+		api.add_user(self)
+		@@login = api
 	end
 
 	# def check_homework(homework)
 	# end
 
 	def subscribe_to_student(student)
-		@subscriptions << student
+		@subscriptions << student if @@login.user_connected?(self)
 	end
 
 	# def notifications
