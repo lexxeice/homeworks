@@ -17,7 +17,7 @@ class Api
 	end
 
 	def user_connected?(user)
-		true ? @users_list.include?(user) : puts {'User not logged in!'}
+		true ? @users_list.include?(user) : (puts 'User not logged in!')
 	end
 
 	def add_homework(homework)
@@ -29,7 +29,7 @@ class Api
 		@users_list.each do |user_data, position|
 			# binding.pry
 			if position == Mentor
-				send_notification(user_data, student, homework_name) if user_date.subscribed_to?(student)	
+				send_notification(user_data, student, homework_name) if user_data.subscribed_to?(student)	
 			end
 		end
 	end

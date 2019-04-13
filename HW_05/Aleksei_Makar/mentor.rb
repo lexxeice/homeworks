@@ -26,8 +26,9 @@ class Mentor < Human
 	end
 
 	def check_homework(homework)
-		binding.pry
-
+		if subscribed_to?(homework.student) && @@login.homework_list.include?(homework)
+			(homework.check_status = 'Succeeded') ? (rand * 10).round.even? : homework.check_status = 'Failed'
+		end
 	end
 
 	def subscribed_to?(student)

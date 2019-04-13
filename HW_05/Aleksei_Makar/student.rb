@@ -18,6 +18,7 @@ class Student < Human
 	end
 
 	def submit_homework(homework)
+		# binding.pry
 		if homework.owner?(self) && @@login.user_connected?(self)
 			# Net::HTTP.post URI('http://www.example.com/'),
    #            	 homework.convert_to_json,
