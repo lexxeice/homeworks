@@ -1,9 +1,9 @@
+# creates a human
 class Human
-	attr_reader :name, :surname
+  attr_reader :name, :surname
 
-	def initialize(name:, surname:)
-		@name = name
-		@surname = surname
-	end
-	
+  def initialize(name:, surname:)
+    @name = name
+    @surname = surname
+  end
 end
