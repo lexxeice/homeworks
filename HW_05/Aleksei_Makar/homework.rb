@@ -15,10 +15,10 @@ class Homework
 	end
 
 	def owner?(user)
-		true ? self.student.eql?(user) : (puts "No access to this homework!")
+		self.student.eql?(user) ? true : (puts "No access to this homework!")
 	end
 
-	def add_check_status()
+	def add_check_status
 		@check_status = 'No checked'
 		self
 	end

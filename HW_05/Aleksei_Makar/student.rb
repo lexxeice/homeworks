@@ -6,24 +6,39 @@ require 'net/http'
 require 'pry'
 
 class Student < Human
-	attr_reader :login
+	attr_reader :nickname, :connection_status
+
+	def initialize(name:, surname:)
+		super
+		@nickname = "#{name} #{surname}"
+	end
 
 	def create_homework(source:, title:)
-		Homework.new(homework_source: source, student: self, pr_title: title) #self?
+		Homework.new(homework_source: source, student: @nickname, pr_title: title)
 	end
 
 	def connect_to_api(api)
 		api.add_user(self)
-		@@login = api
+		@login = api
+		user_connected!(true)
 	end
 
 	def submit_homework(homework)
-		# binding.pry
-		if homework.owner?(self) && @@login.user_connected?(self)
+		if homework.owner?(@nickname) && user_connected?
 			# Net::HTTP.post URI('http://www.example.com/'),
    #            	 homework.convert_to_json,
    #             	"Content-Type" => "application/json"
-      @@login.add_homework(homework)
+      @login.add_homework(homework)
   	end
+	end
+
+	private
+
+	def user_connected!(status)
+		@connection_status = status
+	end
+
+	def user_connected?
+		@connection_status ? true : (puts 'User not logged in!')
 	end
 end
