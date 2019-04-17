@@ -14,7 +14,7 @@ class Mentor < Human
   end
 
   def subscribe_to_student(student)
-    @subscriptions << student.nickname if self.user_connected?
+    @subscriptions << student.nickname if user_connected?
   end
 
   def read_notifications!

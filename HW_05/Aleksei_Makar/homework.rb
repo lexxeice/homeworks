@@ -11,7 +11,7 @@ class Homework
     @pr_title = pr_title
   end
 
-  def to_json
+  def json
     { source: @homework_source, student: @student, pr_title: @pr_title }.to_json
   end
 

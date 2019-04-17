@@ -20,9 +20,9 @@ class Student < Human
   end
 
   def submit_homework(homework)
-    if homework.owner?(@nickname) && self.user_connected?
+    if homework.owner?(@nickname) && user_connected?
       Net::HTTP.post URI('http://www.example.com/'),
-                     homework.to_json,
+                     homework.json,
                      'Content-Type' => 'application/json'
       @login.add_homework(homework)
       return (puts "#{@nickname} successfully sent #{homework.pr_title}")
