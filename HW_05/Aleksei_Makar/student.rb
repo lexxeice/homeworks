@@ -1,12 +1,14 @@
 require_relative 'human'
 require_relative 'homework'
 require_relative 'api'
+require_relative 'authorization'
 require 'uri'
 require 'net/http'
 
 # creates a student and describes his behavior
 class Student < Human
-  attr_reader :nickname, :connection_status
+  include Authorization
+  attr_reader :nickname
 
   def initialize(name:, surname:)
     super
@@ -17,30 +19,14 @@ class Student < Human
     Homework.new(homework_source: source, student: @nickname, pr_title: title)
   end
 
-  def connect_to_api(api)
-    api.add_user(self)
-    @login = api
-    user_connected!(true)
-  end
-
   def submit_homework(homework)
-    if homework.owner?(@nickname) && user_connected?
+    if homework.owner?(@nickname) && self.user_connected?
       Net::HTTP.post URI('http://www.example.com/'),
-                     homework.convert_to_json,
+                     homework.to_json,
                      'Content-Type' => 'application/json'
       @login.add_homework(homework)
       return (puts "#{@nickname} successfully sent #{homework.pr_title}")
     end
     puts "#{@nickname} can not send #{homework.pr_title}"
-  end
-
-  private
-
-  def user_connected!(status)
-    @connection_status = status
-  end
-
-  def user_connected?
-    @connection_status ? true : (puts 'User not logged in!')
   end
 end

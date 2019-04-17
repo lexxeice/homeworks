@@ -1,10 +1,11 @@
 require_relative 'human'
 require_relative 'api'
+require_relative 'authorization'
 
 # creates a mentor and describes his behavior
 class Mentor < Human
+  include Authorization
   attr_accessor :subscriptions, :notifications
-  attr_reader :connection_status
 
   def initialize(name:, surname:)
     super
@@ -12,14 +13,8 @@ class Mentor < Human
     @notifications = {}
   end
 
-  def connect_to_api(api)
-    api.add_user(self)
-    @login = api
-    user_connected!(true)
-  end
-
   def subscribe_to_student(student)
-    @subscriptions << student.nickname if user_connected?
+    @subscriptions << student.nickname if self.user_connected?
   end
 
   def read_notifications!
@@ -46,14 +41,6 @@ class Mentor < Human
   end
 
   private
-
-  def user_connected!(status)
-    @connection_status = status
-  end
-
-  def user_connected?
-    @connection_status ? true : (puts 'User not logged in!')
-  end
 
   def entered_result(value)
     if value == 'Y'
