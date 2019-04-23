@@ -3,7 +3,8 @@ require 'pry'
 
 # creates a homework and describes his behavior
 class Homework
-  attr_accessor :homework_source, :student, :pr_title, :check_status
+  attr_reader :homework_source, :student, :pr_title
+  attr_accessor :check_status
 
   def initialize(homework_source:, student:, pr_title:)
     @homework_source = homework_source

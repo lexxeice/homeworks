@@ -1,6 +1,6 @@
 # autorization module
 module Authorization
-  attr_accessor :connection_status
+  attr_reader :connection_status, :login
 
   def connect_to_api(api)
     api.add_user(self)

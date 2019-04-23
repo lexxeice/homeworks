@@ -3,7 +3,7 @@ require_relative 'student'
 
 # creates a database and describes its behavior
 class Api
-  attr_accessor :check_status, :homework_list, :users_list
+  attr_reader :check_status, :homework_list, :users_list
 
   def initialize
     @users_list = {}
@@ -12,9 +12,9 @@ class Api
 
   def add_user(user)
     if user.class == Mentor
-      @users_list[user] = user.class
+      @users_list[user] = Mentor
     else
-      @users_list[user.nickname] = user.class
+      @users_list[user.nickname] = Student
     end
   end
 

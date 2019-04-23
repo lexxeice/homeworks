@@ -5,7 +5,7 @@ require_relative 'authorization'
 # creates a mentor and describes his behavior
 class Mentor < Human
   include Authorization
-  attr_accessor :subscriptions, :notifications
+  attr_reader :subscriptions, :notifications
 
   def initialize(name:, surname:)
     super
@@ -23,17 +23,13 @@ class Mentor < Human
     end
   end
 
-  def check_homework(homew)
-    if subscribed_to?(homew.student) && @login.include?(homew)
-      puts "Succeeded or Failed #{homew.student} #{homew.pr_title}? Press Y/N"
-      if entered_result(gets.chomp.upcase)
-        (homew.check_status = 'Succeeded')
-      else
-        (homew.check_status = 'Failed')
-      end
+  def check_homework(hmwk)
+    if subscribed_to?(hmwk.student) && @login.include?(hmwk)
+      puts "Succeeded or Failed #{hmwk.student} #{hmwk.pr_title}? Press Y/N"
+      entered_result(hmwk)
       return (puts 'DONE!')
     end
-    puts "You can't check this homework #{homew.pr_title}"
+    puts "You can't check this homework #{hmwk.pr_title}"
   end
 
   def subscribed_to?(student)
@@ -42,15 +38,16 @@ class Mentor < Human
 
   private
 
-  def entered_result(value)
-    if value == 'Y'
-      true
-    elsif value == 'N'
-      false
+  def entered_result(hmwk)
+    case gets.chomp.upcase
+    when 'Y'
+      hmwk.check_status = 'Succeeded'
+    when 'N'
+      hmwk.check_status = 'Failed'
     else
       puts 'Wrong input, try again'
       puts 'Succeeded(Y) or Failed(N)? Press Y/N'
-      entered_result(gets.chomp.upcase)
+      entered_result(hmwk)
     end
   end
 end
