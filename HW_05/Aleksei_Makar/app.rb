@@ -1,32 +1,33 @@
 require_relative 'student'
 require_relative 'mentor'
 require_relative 'api'
-require 'pry'
 
-api = Api.new
+api = Api.new # create GitHub
 
-alex = Student.new(name: 'Alex', surname: 'Makar')
+student_alex = Student.new('Alex Makar')
 
-mentor = Mentor.new(name: '‎Yukihiro', surname: 'Matsumoto')
+mentor_petrov = Mentor.new('Petr Petrov')
 
-homework1_alex = alex.create_homework(source: 'ALEX_CODE', title: 'HW_01')
+hmwk_01_alex = student_alex.create_homework(source: 'Code_01', title: 'HW_01')
 
-homework2_alex = alex.create_homework(source: 'ALEX_CODE_02', title: 'HW_02')
+hmwk_02_alex = student_alex.create_homework(source: 'Code_02', title: 'HW_02')
 
-alex.connect_to_api(api)
+student_alex.submit_homework(hmwk_01_alex, api)
 
-mentor.connect_to_api(api)
+student_alex.connect_to(api)
 
-mentor.subscribe_to_student(alex)
+mentor_petrov.connect_to(api)
 
-alex.submit_homework(homework1_alex)
+student_alex.submit_homework(hmwk_01_alex, api)
 
-alex.submit_homework(homework2_alex)
+mentor_petrov.subscribe_to(student_alex, api)
 
-p mentor.notifications
+student_alex.submit_homework(hmwk_02_alex, api)
 
-mentor.check_homework(homework1_alex)
+p mentor_petrov.notifications
 
-mentor.read_notifications!
+mentor_petrov.read_notifications!
 
-p mentor.notifications
+p mentor_petrov.notifications
+
+mentor_petrov.check(hmwk_01_alex, api)

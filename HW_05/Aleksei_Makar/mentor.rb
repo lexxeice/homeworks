@@ -1,20 +1,24 @@
 require_relative 'human'
-require_relative 'api'
 require_relative 'authorization'
 
 # creates a mentor and describes his behavior
 class Mentor < Human
-  include Authorization
   attr_reader :subscriptions, :notifications
 
-  def initialize(name:, surname:)
+  include Authorization
+
+  def initialize(name)
     super
-    @subscriptions = []
     @notifications = {}
+    @subscriptions = []
   end
 
-  def subscribe_to_student(student)
-    @subscriptions << student.nickname if user_connected?
+  def subscribe_to(student, api)
+    @subscriptions << student if api.subscription_possible?(self, student)
+  end
+
+  def subscribed_to?(student)
+    @subscriptions.include?(student)
   end
 
   def read_notifications!
@@ -23,31 +27,13 @@ class Mentor < Human
     end
   end
 
-  def check_homework(hmwk)
-    if subscribed_to?(hmwk.student) && @login.include?(hmwk)
-      puts "Succeeded or Failed #{hmwk.student} #{hmwk.pr_title}? Press Y/N"
-      entered_result(hmwk)
+  def check(homework, api)
+    student = homework.student
+    if api.include?(homework) && subscribed_to?(student)
+      puts "Succeeded or Failed #{student.name} #{homework.pr_title}? Press Y/N"
+      api.entered_result(homework)
       return (puts 'DONE!')
     end
-    puts "You can't check this homework #{hmwk.pr_title}"
-  end
-
-  def subscribed_to?(student)
-    @subscriptions.include?(student) ? true : (puts 'You are not subscribed')
-  end
-
-  private
-
-  def entered_result(hmwk)
-    case gets.chomp.upcase
-    when 'Y'
-      hmwk.check_status = 'Succeeded'
-    when 'N'
-      hmwk.check_status = 'Failed'
-    else
-      puts 'Wrong input, try again'
-      puts 'Succeeded(Y) or Failed(N)? Press Y/N'
-      entered_result(hmwk)
-    end
+    puts "You can't check this homework!"
   end
 end
