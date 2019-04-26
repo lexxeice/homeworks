@@ -1,11 +1,10 @@
 require_relative 'human'
 
 RSpec.describe Human do
-  subject { Human.new(name: :name, surname: :surname) }
+  subject { Human.new(name: :name) }
   describe '#name' do
-    it { expect(subject.name).to eq :name }
-  end
-  describe '#surname' do
-    it { expect(subject.surname).to eq :surname }
+    it 'returns name' do
+      expect(subject.name).to eq :name
+    end
   end
 end

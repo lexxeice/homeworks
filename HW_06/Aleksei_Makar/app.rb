@@ -4,9 +4,9 @@ require_relative 'api'
 
 api = Api.new # create GitHub
 
-student_alex = Student.new('Alex Makar')
+student_alex = Student.new(name: 'Alex Makar')
 
-mentor_petrov = Mentor.new('Petr Petrov')
+mentor_petrov = Mentor.new(name: 'Petr Petrov')
 
 hmwk_01_alex = student_alex.create_homework(source: 'Code_01', title: 'HW_01')
 
