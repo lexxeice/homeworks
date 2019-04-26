@@ -7,16 +7,25 @@ require_relative 'api'
 RSpec.describe Student do
   subject { Student.new(name: :name) }
   let(:api) { Api.new }
-  let(:homework) { Homework.new(homework_source: 'source', student: subject, pr_title: 'title') }
+  let(:homework) { Homework.new(params) }
+  let(:params) do
+    {
+      homework_source: 'source',
+      student: subject,
+      pr_title: 'title'
+    }
+  end
 
   describe '#name' do
-    it 'returns name' do
-      expect(subject.name).to eq :name
+    context 'returns name' do
+      it { expect(subject.name).to eq :name }
     end
   end
 
   describe '#create_homework' do
-    it { expect(subject.create_homework(source: 'source', title: 'title')).to be_an_instance_of(Homework) }
+    context 'creates an instance of homework' do
+      it { expect(subject.create_homework(source: 'source', title: 'title')).to be_an_instance_of(Homework) }
+    end
   end
 
   describe '#submit_homework' do
@@ -38,9 +47,11 @@ RSpec.describe Student do
         to_return(status: 200, body: "", headers: {})
     end
 
-    it 'performs POST request to GitHub' do
-      subject.submit_homework(homework, api)
-      expect(WebMock).to have_requested(:post, "www.example.com").with { |req| req.body == expected_body }
+    context 'performs POST request to GitHub' do
+      it do
+        subject.submit_homework(homework, api)
+        expect(WebMock).to have_requested(:post, "www.example.com").with { |req| req.body == expected_body }
+      end
     end
   end
 end

@@ -4,25 +4,32 @@ require_relative 'student'
 
 
 RSpec.describe Homework do
-  subject { Homework.new(homework_source: 'source', student: student, pr_title: 'title') }
+  subject { Homework.new(params) }
   let(:student) { Student.new(name: :name) }
   let(:fake_student) { Student.new(name: :fake_name) }
+  let(:params) do
+    {
+      homework_source: 'source',
+      student: student,
+      pr_title: 'title'
+    }
+  end
 
   describe '#source' do
-    it 'returns homework source code' do
-      expect(subject.source).to eq 'source'
+    context 'returns homework source code' do
+      it { expect(subject.source).to eq 'source' }
     end
   end
 
   describe '#student' do
-    it 'returns the student who did this homework' do
-      expect(subject.student).to eq student
+    context 'returns the student who did this homework' do
+      it { expect(subject.student).to be_an_instance_of(Student) }
     end
   end
 
   describe '#pr_title' do
-    it 'returns homework title' do
-      expect(subject.pr_title).to eq 'title'
+    context 'returns homework title' do
+      it { expect(subject.pr_title).to eq 'title' }
     end
   end
 
@@ -35,17 +42,17 @@ RSpec.describe Homework do
       }.to_json
     end
 
-    it 'converts homework to json' do
-      expect(subject.json).to eq expected_body
+    context 'converts homework to json' do
+      it { expect(subject.json).to eq expected_body }
     end
   end
 
   describe '#owner?' do
-    it 'when the user is owner' do
-      expect(subject.owner?(student)).to eq true
+    context 'when the user is owner' do
+      it { expect(subject.owner?(student)).to eq true }
     end
-    it 'when the user is not the owner' do
-      expect(subject.owner?(fake_student)).to eq nil
+    context 'when the user is not the owner' do
+      it { expect(subject.owner?(fake_student)).to eq nil }
     end
   end
 end
