@@ -19,12 +19,6 @@ RSpec.describe Student do
     it { expect(subject.create_homework(source: 'source', title: 'title')).to be_an_instance_of(Homework) }
   end
 
-  describe '#connect_to' do
-    it 'adds student to user list in GitHub' do
-      expect(subject.connect_to(api)).to eq Student
-    end
-  end
-
   describe '#submit_homework' do
     let(:expected_body) do
       {
