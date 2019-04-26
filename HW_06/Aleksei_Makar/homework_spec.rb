@@ -2,7 +2,6 @@ require 'json'
 require_relative 'homework'
 require_relative 'student'
 
-
 RSpec.describe Homework do
   subject { Homework.new(params) }
   let(:student) { Student.new(name: :name) }
@@ -43,7 +42,9 @@ RSpec.describe Homework do
     end
 
     context 'converts homework to json' do
-      it { expect(subject.json).to eq expected_body }
+      it 'should eq homework.json' do
+        expect(subject.json).to eq expected_body
+      end
     end
   end
 

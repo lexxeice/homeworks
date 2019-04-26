@@ -57,8 +57,8 @@ RSpec.describe Api do
       it do
         subject.send_notification(student, homework.pr_title)
         expect(mentor.notifications)
-        .to have_key("#{student.name} has sent #{homework.pr_title}")
-        .and have_value('UNREAD')
+          .to have_key("#{student.name} has sent #{homework.pr_title}")
+          .and have_value('UNREAD')
       end
     end
   end
@@ -77,7 +77,7 @@ RSpec.describe Api do
   describe '#subscription_possible?' do
     context 'checks the possibility of subscription' do
       it 'true' do
-        expect(subject.subscription_possible?(mentor,student)).to eq true
+        expect(subject.subscription_possible?(mentor, student)).to eq true
       end
       it 'false' do
         expect(subject.subscription_possible?(mentor, fake_student)).to eq nil

@@ -39,18 +39,19 @@ RSpec.describe Student do
 
     before do
       subject.connect_to(api)
-      stub_request(:post, "http://www.example.com/").
-        with(
+      stub_request(:post, 'http://www.example.com/')
+        .with(
           headers: {
-            'Content-Type'=>'application/json',
-          }).
-        to_return(status: 200, body: "", headers: {})
+            'Content-Type' => 'application/json'
+          }
+        )
+        .to_return(status: 200, body: '', headers: {})
     end
 
     context 'performs POST request to GitHub' do
       it do
         subject.submit_homework(homework, api)
-        expect(WebMock).to have_requested(:post, "www.example.com").with { |req| req.body == expected_body }
+        expect(WebMock).to have_requested(:post, 'www.example.com').with { |req| req.body == expected_body }
       end
     end
   end

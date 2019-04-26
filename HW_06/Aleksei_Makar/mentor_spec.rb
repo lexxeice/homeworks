@@ -4,10 +4,10 @@ require_relative 'homework'
 require_relative 'api'
 
 RSpec.describe Mentor do
-  subject { Mentor.new(name: :name)}
-  let(:api) {Api.new}
-  let(:student) {Student.new(name: 'Alex')}
-  let(:homework) { Homework.new(params)}
+  subject { Mentor.new(name: :name) }
+  let(:api) { Api.new }
+  let(:student) { Student.new(name: 'Alex') }
+  let(:homework) { Homework.new(params) }
   let(:params) do
     {
       homework_source: 'source',
@@ -32,7 +32,6 @@ RSpec.describe Mentor do
     context 'returns list of subscriptions' do
       it { expect(subject.subscriptions).to be_an_instance_of(Array) }
     end
-
   end
 
   before(:each) do
