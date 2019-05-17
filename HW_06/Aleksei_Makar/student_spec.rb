@@ -17,14 +17,14 @@ RSpec.describe Student do
   end
 
   describe '#name' do
-    context 'returns name' do
-      it { expect(subject.name).to eq :name }
+    it'returns name' do
+      expect(subject.name).to eq :name
     end
   end
 
   describe '#create_homework' do
-    context 'creates an instance of homework' do
-      it { expect(subject.create_homework(source: 'source', title: 'title')).to be_an_instance_of(Homework) }
+    it'creates an instance of homework' do
+      expect(subject.create_homework(source: 'source', title: 'title')).to be_an_instance_of(Homework)
     end
   end
 
@@ -48,11 +48,9 @@ RSpec.describe Student do
         .to_return(status: 200, body: '', headers: {})
     end
 
-    context 'performs POST request to GitHub' do
-      it do
-        subject.submit_homework(homework, api)
-        expect(WebMock).to have_requested(:post, 'www.example.com').with { |req| req.body == expected_body }
-      end
+    it 'performs POST request to GitHub' do
+      subject.submit_homework(homework, api)
+      expect(WebMock).to have_requested(:post, 'www.example.com').with { |req| req.body == expected_body }
     end
   end
 end

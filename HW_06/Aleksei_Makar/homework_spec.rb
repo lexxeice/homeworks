@@ -15,20 +15,20 @@ RSpec.describe Homework do
   end
 
   describe '#source' do
-    context 'returns homework source code' do
-      it { expect(subject.source).to eq 'source' }
+    it 'returns homework source code' do
+      expect(subject.source).to eq 'source'
     end
   end
 
   describe '#student' do
-    context 'returns the student who did this homework' do
-      it { expect(subject.student).to be_an_instance_of(Student) }
+    it 'returns the student who did this homework' do
+      expect(subject.student).to be_an_instance_of(Student)
     end
   end
 
   describe '#pr_title' do
-    context 'returns homework title' do
-      it { expect(subject.pr_title).to eq 'title' }
+    it 'returns homework title' do
+      expect(subject.pr_title).to eq 'title'
     end
   end
 
@@ -41,19 +41,17 @@ RSpec.describe Homework do
       }.to_json
     end
 
-    context 'converts homework to json' do
-      it 'should eq homework.json' do
-        expect(subject.json).to eq expected_body
-      end
+    it 'converts homework to json' do
+      expect(subject.json).to eq expected_body
     end
   end
 
   describe '#owner?' do
-    context 'when the user is owner' do
-      it { expect(subject.owner?(student)).to eq true }
+    it 'true' do
+      expect(subject.owner?(student)).to eq true
     end
-    context 'when the user is not the owner' do
-      it { expect(subject.owner?(fake_student)).to eq nil }
+    it 'false' do
+      expect(subject.owner?(fake_student)).to eq nil
     end
   end
 end
